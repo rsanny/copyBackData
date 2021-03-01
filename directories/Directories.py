@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from tplatform.Platform import Platform
+from directories.ReadSettingsFile import ReadSettingsFile
 
-class Directories(Platform):
+class Directories(Platform,ReadSettingsFile):
     
-    FIRST = "C:\\data\\backups\\esplus.ru\\2021\\02\\16\\all\\files"
+    FIRST = "C:\\data\\python-project\\2021\\filetest\\first\\02\\komi"
     LAST = "C:\\data\\python-project\\2021\\filetest\\result"
     
     FIRST_LINUX = "/mnt/server/home/eratadb/projects/komi-eratadb.ru/www"
@@ -13,10 +14,17 @@ class Directories(Platform):
     
     def __init__(self):
         super().__init__()
-        self.method_first()
-        self.method_last()
-        self.excFolder = self.excludingFoldersFiles()
-    
+        # self.method_first()
+        # self.method_last()
+        # self.excFolder = self.excludingFoldersFiles()
+        
+        # ReadSettingsFile
+        self.rUrl(self.windows(),self.linux())
+        self.setJson = self.readJson()
+        self.path_first = self.setJson["FIRST"]
+        self.path_last  = self.setJson["LAST"]
+        self.excFolder = self.setJson["EXCFOLDER"]
+
     def method_first(self):
         if int(self.windows()) == 1:
             self.path_first = Directories.FIRST
@@ -34,7 +42,7 @@ class Directories(Platform):
     def excludingFoldersFiles(self):
         if int(self.windows()) == 1:
             excFolder = [
-                # "C:\\data\\backups\\erkc-dzr.ru\\2021\\02\\26\\files\\bitrix",
+                # "C:\\data\\backups\\esplus.ru\\2021\\02\\16\\all\\files\\bitrix",
                 # "C:\\data\\backups\\erkc-dzr.ru\\2021\\02\\10\\files\\upload",
                 # "C:\\data\\python-project\\2021\\filetest\\first\\komi3"
                 ]
@@ -49,5 +57,7 @@ if __name__ == "__main__":
     OP = Directories()
     tp = OP.method_first();
     print(tp) 
+    ReadOb = ReadSettingsFile() 
+    ReadOb.jsonFile()
     
     
