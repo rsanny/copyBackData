@@ -5,15 +5,17 @@ import json
 import os
 import sys
 
-class ReadSettingsFile():
+class ReadSettingsFile:
     
     fileSettings = "settings.json"
+    fileCopyTime = "dataСopyTime.json"
     attrWin = "windows"
     attrLin = "linux"
     
     def __init__(self):
         self.redpath = ""
         self.fileSettings = ReadSettingsFile.fileSettings
+        self.fileCopyTime = ReadSettingsFile.fileCopyTime
         self.win = ""
         self.lin = ""
         self.fileJsonData = {};
@@ -46,6 +48,11 @@ class ReadSettingsFile():
     def jsonFile(self):
         pathname = os.path.dirname(sys.argv[0])
         path = self.redpath.format(pathname,self.fileSettings)
+        return path
+    
+    def jsonFileCopy(self):
+        pathname = os.path.dirname(sys.argv[0])
+        path = self.redpath.format(pathname,self.fileCopyTime)
         return path
     
     

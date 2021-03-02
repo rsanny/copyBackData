@@ -3,7 +3,7 @@
 
 import os
 import os.path
-from copySectionsFiles.CopySectionsFiles import CopySectionsFiles
+from softwareСopyData.CopySectionsFiles import CopySectionsFiles
 
 class WorkingSectionsFiles(CopySectionsFiles):
     

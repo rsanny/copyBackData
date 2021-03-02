@@ -4,15 +4,17 @@
 import os
 import os.path
 import sys
-from directories.Directories import Directories
-from debug.Debug import Debug
-from workingSectionsFiles.WorkingSectionsFiles import WorkingSectionsFiles
-from copyTime.CopyTime import CopyTime
+from softwareСopyData.Directories import Directories
+from softwareСopyData.Debug import Debug
+from softwareСopyData.WorkingSectionsFiles import WorkingSectionsFiles
+# from softwareСopyData.CopyTime import CopyTime
+from softwareСopyData.DataСopyTime import DataСopyTime
 
-class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,CopyTime):
+class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
     
     def __init__(self):
         super().__init__()
+        self.conf = {}
         self.iterProgres = 0
         self.fileSizeOut = 0
         self.rauri = ""
@@ -24,8 +26,6 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,CopyTime):
         # self.path_first = Directories.FIRST
         # self.path_last = Directories.LAST
         
-    def scanSectFlesResult(self):
-        pass
     
     def razdelitelUrl(self):
         self.rauri = ""
@@ -46,7 +46,7 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,CopyTime):
             arrDataSectionsFiles = self.listDir(path)
         else:
             arrDataSectionsFiles = self.listDir()
-        # print("arrDataSectionsFiles", arrDataSectionsFiles)
+        print("arrDataSectionsFiles", arrDataSectionsFiles)
         for section in arrDataSectionsFiles:
             # print(" path_last ", self.path_last)
             if section != "":
@@ -84,6 +84,14 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,CopyTime):
                         # sys.stdout.write("\n date first: {} date last: {} \n".format(self.timeData,self.timeDataLast))
                         # sys.stdout.write("\n executionPeriod: {} {} \n".format(self.executionPeriod["value"],self.executionPeriod["type"]))
                         sys.stdout.flush()
+                        self.conf = self.save({
+                          "iterProgres":self.iterProgres,
+                          "fileSizeOut":self.fileSizeOut,
+                          "rnumber":RNUMBER,
+                          "resultFileOutRazmerType":resultFileOutRazmer["type"],
+                          "executionPeriodValue":self.executionPeriod["value"],
+                          "executionPeriodType":self.executionPeriod["type"]
+                        })
 
                     if typeDirStatus == True:
                         self.scanSectFles(pathSection)
@@ -91,8 +99,11 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,CopyTime):
                     # print("pathSection ",pathSection)
                 else:
                     print("Пропускаем - найдено соответсвие: {}".format(matchFound))
+
                     
                     
+    def saveConf(self):
+        return self.conf       
     
     def listDir(self,path = ""):
         if path !="":
