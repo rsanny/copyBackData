@@ -8,7 +8,7 @@ import sys
 class ReadSettingsFile:
     
     fileSettings = "settings.json"
-    fileCopyTime = "dataСopyTime.json"
+    fileCopyTime = "dataCopyTime.json"
     attrWin = "windows"
     attrLin = "linux"
     
@@ -54,6 +54,18 @@ class ReadSettingsFile:
         pathname = os.path.dirname(sys.argv[0])
         path = self.redpath.format(pathname,self.fileCopyTime)
         return path
+    
+    def saveDataFileJson(self):
+        FJC = self.jsonFileCopy()
+        jsonDict = {
+            "numberFiles": self.conf["iterProgres"],
+            "sizeInBytes": self.conf["fileSizeOut"],
+            "fileSize": "{} {}".format(self.conf["rnumber"],self.conf["resultFileOutRazmerType"]),
+            "timeCopyAll": "{} {}".format(self.conf["executionPeriodValue"],self.conf["executionPeriodType"]),
+            "timeEnd":"{} {}".format(self.curentDate(),self.curentTime())
+        }
+        jsonString = json.dumps(jsonDict);
+        return self.writeFile(FJC,jsonString)
     
     
 if __name__ == "__main__":

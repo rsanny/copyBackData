@@ -3,7 +3,7 @@
 
 import os
 import os.path
-from softwareСopyData.CopySectionsFiles import CopySectionsFiles
+from softwareCopyData.CopySectionsFiles import CopySectionsFiles
 
 class WorkingSectionsFiles(CopySectionsFiles):
     
@@ -103,17 +103,17 @@ class WorkingSectionsFiles(CopySectionsFiles):
                     numberRazmer = (numberRazmer/kof)
                     resultObj = {
                         "value":numberRazmer,
-                        "type":"Гб"
+                        "type":"GB"
                     }
                 else:
                     resultObj = {
                         "value":numberRazmer,
-                        "type":"Мб"
+                        "type":"MB"
                     }
             else:
                 resultObj = {
                         "value":numberRazmer,
-                        "type":"Кб"
+                        "type":"KB"
                     }      
         return resultObj
     
@@ -123,6 +123,16 @@ class WorkingSectionsFiles(CopySectionsFiles):
         if number > 0:
             rnumber = int(number*default)/default
         return rnumber
+    
+    def writeFile(self,file,data):
+        try:
+            fileJson = open(file, 'w')
+            fileJson.write(data)
+            fileJson.close()
+            return True;
+        except:
+            return False;
+        
             
             
         

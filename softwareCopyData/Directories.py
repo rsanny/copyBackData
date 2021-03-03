@@ -1,8 +1,8 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from softwareСopyData.Platform import Platform
-from softwareСopyData.ReadSettingsFile import ReadSettingsFile
+from softwareCopyData.Platform import Platform
+from softwareCopyData.ReadSettingsFile import ReadSettingsFile
 
 class Directories(Platform,ReadSettingsFile):
     

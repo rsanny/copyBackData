@@ -4,11 +4,11 @@
 import os
 import os.path
 import sys
-from softwareСopyData.Directories import Directories
-from softwareСopyData.Debug import Debug
-from softwareСopyData.WorkingSectionsFiles import WorkingSectionsFiles
-# from softwareСopyData.CopyTime import CopyTime
-from softwareСopyData.DataСopyTime import DataСopyTime
+from softwareCopyData.Directories import Directories
+from softwareCopyData.Debug import Debug
+from softwareCopyData.WorkingSectionsFiles import WorkingSectionsFiles
+# from softwareCopyData.CopyTime import CopyTime
+from softwareCopyData.DataСopyTime import DataСopyTime
 
 class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
     
@@ -78,8 +78,9 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
                         self.timeUnixLast = self.curentCtime()
                         self.timeDataLast = self.curentDate()
                         self.executionPeriod = self.periodDataCopy(self.timeUnix,self.timeUnixLast)
+                        PERIOD = self.toNumberFloat(self.executionPeriod["value"])
 
-                        sys.stdout.write("\n\n количество файлов:{} file в байтах: {} размер файла: {} {} время копирования: {} {} \n".format(self.iterProgres,self.fileSizeOut,RNUMBER,resultFileOutRazmer["type"],self.executionPeriod["value"],self.executionPeriod["type"]))
+                        sys.stdout.write("\n\n количество файлов:{} file в байтах: {} размер файла: {} {} время копирования: {} {} \n".format(self.iterProgres,self.fileSizeOut,RNUMBER,resultFileOutRazmer["type"],PERIOD,self.executionPeriod["type"]))
                         # sys.stdout.write("\n time first: {} time last: {} \n".format(self.timeUnix,self.timeUnixLast))
                         # sys.stdout.write("\n date first: {} date last: {} \n".format(self.timeData,self.timeDataLast))
                         # sys.stdout.write("\n executionPeriod: {} {} \n".format(self.executionPeriod["value"],self.executionPeriod["type"]))
@@ -89,7 +90,7 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
                           "fileSizeOut":self.fileSizeOut,
                           "rnumber":RNUMBER,
                           "resultFileOutRazmerType":resultFileOutRazmer["type"],
-                          "executionPeriodValue":self.executionPeriod["value"],
+                          "executionPeriodValue":PERIOD,
                           "executionPeriodType":self.executionPeriod["type"]
                         })
 
@@ -103,7 +104,7 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
                     
                     
     def saveConf(self):
-        return self.conf       
+        return self.saveDataFileJson()  
     
     def listDir(self,path = ""):
         if path !="":

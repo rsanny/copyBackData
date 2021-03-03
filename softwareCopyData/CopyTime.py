@@ -50,17 +50,17 @@ class CopyTime:
                 curtimeData = (curtimeData/kof)
                 resultTimeObj = {
                     "value":curtimeData,
-                    "type":"часов"
+                    "type":"hours"
                 }
             else:
                 resultTimeObj = {
                     "value":curtimeData,
-                    "type":"минут"
+                    "type":"minutes"
                 }
         else:
             resultTimeObj = {
                     "value":curtimeData,
-                    "type":"секунд"
+                    "type":"seconds"
                 }      
         return resultTimeObj
     
