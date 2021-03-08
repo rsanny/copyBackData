@@ -3,5 +3,11 @@
         "FIRST":"C:\\data\\backups\\komiesc.ru\\2021\\01\\27",
         "LAST":"C:\\data\\python-project\\2021\\filetest\\result",
         "EXCFOLDER":[]
+    },
+    "linux":{
+        "FIRST":"/home/webrobot/robotsanny/2017",
+        "LAST":"/home/webrobot/robotsanny/testtest/files",
+        "EXCFOLDER":[],
+        "BASADUMP":"/home/webrobot/robotsanny/testtest/basa"
     }
 }

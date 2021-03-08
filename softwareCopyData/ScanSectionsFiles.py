@@ -9,11 +9,13 @@ from softwareCopyData.Debug import Debug
 from softwareCopyData.WorkingSectionsFiles import WorkingSectionsFiles
 # from softwareCopyData.CopyTime import CopyTime
 from softwareCopyData.DataСopyTime import DataСopyTime
+from softwareCopyData.Dump import Dump
 
-class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
+class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime,Dump):
     
     def __init__(self):
         super().__init__()
+        Dump.__init__(self)
         self.conf = {}
         self.iterProgres = 0
         self.fileSizeOut = 0
@@ -46,7 +48,7 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
             arrDataSectionsFiles = self.listDir(path)
         else:
             arrDataSectionsFiles = self.listDir()
-        print("arrDataSectionsFiles", arrDataSectionsFiles)
+        # print("arrDataSectionsFiles", arrDataSectionsFiles)
         for section in arrDataSectionsFiles:
             # print(" path_last ", self.path_last)
             if section != "":
@@ -79,11 +81,8 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
                         self.timeDataLast = self.curentDate()
                         self.executionPeriod = self.periodDataCopy(self.timeUnix,self.timeUnixLast)
                         PERIOD = self.toNumberFloat(self.executionPeriod["value"])
-
-                        sys.stdout.write("\n\n количество файлов:{} file в байтах: {} размер файла: {} {} время копирования: {} {} \n".format(self.iterProgres,self.fileSizeOut,RNUMBER,resultFileOutRazmer["type"],PERIOD,self.executionPeriod["type"]))
-                        # sys.stdout.write("\n time first: {} time last: {} \n".format(self.timeUnix,self.timeUnixLast))
-                        # sys.stdout.write("\n date first: {} date last: {} \n".format(self.timeData,self.timeDataLast))
-                        # sys.stdout.write("\n executionPeriod: {} {} \n".format(self.executionPeriod["value"],self.executionPeriod["type"]))
+                        WRITE_STRING = "\n\n количество файлов:{} file в байтах: {} размер файла: {} {} время копирования: {} {} \n"
+                        sys.stdout.write(WRITE_STRING.format(self.iterProgres,self.fileSizeOut,RNUMBER,resultFileOutRazmer["type"],PERIOD,self.executionPeriod["type"]))
                         sys.stdout.flush()
                         self.conf = self.save({
                           "iterProgres":self.iterProgres,
@@ -97,14 +96,15 @@ class ScanSectionsFiles(Directories,Debug,WorkingSectionsFiles,DataСopyTime):
                     if typeDirStatus == True:
                         self.scanSectFles(pathSection)
                         
-                    # print("pathSection ",pathSection)
                 else:
                     print("Пропускаем - найдено соответсвие: {}".format(matchFound))
 
-                    
-                    
+                  
     def saveConf(self):
         return self.saveDataFileJson()  
+
+    def dumpBasa(self):
+        return self.mysqlDump(self.basaDumpPuth)
     
     def listDir(self,path = ""):
         if path !="":

@@ -8,3 +8,4 @@ if __name__ == "__main__":
     OBJCSF = ScanSectionsFiles()
     OBJCSF.scanSectFles()
     OBJCSF.saveConf()
+    OBJCSF.dumpBasa()

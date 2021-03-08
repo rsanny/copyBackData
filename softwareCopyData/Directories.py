@@ -24,6 +24,7 @@ class Directories(Platform,ReadSettingsFile):
         self.path_first = self.setJson["FIRST"]
         self.path_last  = self.setJson["LAST"]
         self.excFolder = self.setJson["EXCFOLDER"]
+        self.basaDumpPuth = self.setJson["BASADUMP"]
 
     def method_first(self):
         if int(self.windows()) == 1:
